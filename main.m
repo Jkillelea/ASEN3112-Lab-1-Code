@@ -59,7 +59,7 @@ for i = 1:length(files)
   plot(torque, theory_gamma*10^6, 'LineWidth', lw);
   title([plot_title, ', \gamma']);
   xlabel('Torque (lb*in)');
-  ylabel('\gamma, micro radians');
+  ylabel('\gamma, \mu radians');
   legend('Actual Gamma', 'Predicted Gamma');
   xlim([min(torque), max(torque)]);
   print([fname, '-gamma'], '-dpng');
