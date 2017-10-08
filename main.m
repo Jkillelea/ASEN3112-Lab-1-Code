@@ -37,8 +37,6 @@ for i = 1:length(files)
   GJ = torque .* L ./ phi;
   theory_GJ = G * J;
 
-
-
   % print stuff out
   disp(['=====', fname, '===='])
   disp('Torque & Predicted gamma & Actual gamma & Predicted GJ & Actual GJ')
@@ -60,7 +58,7 @@ for i = 1:length(files)
   title([plot_title, ', \gamma']);
   xlabel('Torque (lb*in)');
   ylabel('\gamma, \mu radians');
-  legend('Actual Gamma', 'Predicted Gamma');
+  legend('Actual \gamma', 'Predicted \gamma');
   xlim([min(torque), max(torque)]);
   print([fname, '-gamma'], '-dpng');
 
