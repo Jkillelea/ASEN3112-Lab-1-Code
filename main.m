@@ -23,10 +23,12 @@ for i = 1:length(files)
   if strcmp(fname, '400inlb-solid.csv') % solid bar
     phi = gamma .* L / Re;
     J   = 0.5 * pi * (Re^4 - Ri^4);
+    plot_title = 'solid bar';
   else % slotted bar
     phi = gamma .* L / t;
     b   = 2 * pi * R_avg;  % height of unrolled cross section (t is thickness)
     J   = (1/3) * b * t^3; % b/t = 34.558, so alpha = beta = 1/3
+    plot_title = 'slotted bar';
   end
 
   % should be semi-constant
@@ -39,14 +41,14 @@ for i = 1:length(files)
   figure; hold on;
   plot(phi, gamma);
   plot(phi, theory_gamma);
-  title(fname);
+  title([plot_title, ', gamma']);
   xlabel('\phi');
   ylabel('\gamma, radians');
   legend('Actual Gamma', 'Predicted Gamma');
 
   figure; hold on;
   plot(phi, GJ);
-  title(fname);
+  title([plot_title, ', GJ']);
   xlabel('\phi');
   ylabel('GJ');
 end
