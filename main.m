@@ -23,32 +23,36 @@ for i = 1:length(files)
   if strcmp(fname, '400inlb-solid.csv') % solid bar
     phi = gamma .* L / Re;
     J   = 0.5 * pi * (Re^4 - Ri^4);
-    plot_title = 'solid bar';
+    plot_title = 'Solid Bar';
   else % slotted bar
     phi = gamma .* L / t;
     b   = 2 * pi * R_avg;  % height of unrolled cross section (t is thickness)
     J   = (1/3) * b * t^3; % b/t = 34.558, so alpha = beta = 1/3
-    plot_title = 'slotted bar';
+    plot_title = 'Slotted Bar';
   end
 
   % should be semi-constant
   GJ = torque .* L ./ phi;
+  theory_GJ = G * J;
 
   % theoretical gamma
   theory_gamma = (torque*Re) ./ (G*J);
 
   % make some plots
   figure; hold on;
-  plot(phi, gamma);
-  plot(phi, theory_gamma);
+  plot(phi, gamma*10^6);
+  plot(phi, theory_gamma*10^6);
   title([plot_title, ', gamma']);
   xlabel('\phi');
-  ylabel('\gamma, radians');
+  ylabel('\gamma, micro radians');
   legend('Actual Gamma', 'Predicted Gamma');
 
   figure; hold on;
-  plot(phi, GJ);
+  plot(torque, GJ);
+  plot([min(torque), max(torque)], [theory_GJ, theory_GJ]);
   title([plot_title, ', GJ']);
   xlabel('\phi');
   ylabel('GJ');
+  legend('Actual GJ', 'Predicted GJ');
+  xlim([min(torque), max(torque)]);
 end
