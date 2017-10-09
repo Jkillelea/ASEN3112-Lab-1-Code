@@ -27,9 +27,9 @@ for i = 1:length(files)
     plot_title = 'Solid Bar';
   else % slotted bar
     phi = gamma .* L / t;
-    b   = 2 * pi * R_avg;  % height of unrolled cross section (t is thickness)
+    b   = 2 * pi * Re;     % height of unrolled cross section (t is thickness)
     J   = (1/3) * b * t^3; % b/t = 34.558, so alpha = beta = 1/3
-    theory_gamma = (torque*t) ./ (G*J); % theoretical gamma
+    theory_gamma = (torque*t) ./ (G*J);
     plot_title = 'Slotted Bar';
   end
 
