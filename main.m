@@ -37,38 +37,44 @@ for i = 1:length(files)
   GJ = torque .* L ./ phi;
   theory_GJ = G * J;
 
-  % print stuff out
+  % print stuff out (sorta LaTeX formatting)
   disp(['=====', fname, '===='])
   disp('Torque & Predicted gamma & Actual gamma & Predicted GJ & Actual GJ')
   for i = 10:round(length(torque)/5):length(torque)
     fprintf('%.02f & %.2f & %.2f & %.2f & %.2f \\\\ \n', ...
-            torque(i), ...
+            torque(i),              ...
             theory_gamma(i)*(10^6), ...
-            gamma(i)*(10^6), ...
-            theory_GJ, ...
-            GJ(i) ...
+            gamma(i)*(10^6),        ...
+            theory_GJ,              ...
+            GJ(i)                   ...
     );
   end
 
   % make some plots
   lw = 2; % line width
   figure; hold on;
-  plot(torque, gamma*10^6, 'LineWidth', lw);
+
+  plot(torque, gamma*10^6,        'LineWidth', lw);
   plot(torque, theory_gamma*10^6, 'LineWidth', lw);
+  xlim([min(torque), max(torque)]);
+
   title([plot_title, ', \gamma']);
   xlabel('Torque (lb*in)');
   ylabel('\gamma, \mu radians');
   legend('Actual \gamma', 'Predicted \gamma');
-  xlim([min(torque), max(torque)]);
-  print([fname, '-gamma'], '-dpng');
+
+  print([fname, '-gamma.png'], '-dpng');
 
   figure; hold on;
+
   plot(torque, GJ, 'LineWidth', lw);
   plot([min(torque), max(torque)], [theory_GJ, theory_GJ], 'LineWidth', lw);
+  xlim([min(torque), max(torque)]);
+
   title([plot_title, ', GJ']);
   xlabel('Torque (lb*in)');
   ylabel('GJ');
   legend('Actual GJ', 'Predicted GJ');
-  xlim([min(torque), max(torque)]);
-  print([fname, '-gj'], '-dpng');
+
+  print([fname, '-gj.png'], '-dpng');
 end
